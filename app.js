@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 
 const port = process.env.PORT || 8000;
 const password = process.env.PASSWORD || "lPQkKAARDxZzO7Vl";
-const user = process.env.USER || "crud_veterinaria";
+const user = process.env.USERDB || "crud_veterinaria";
 const dbname = process.env.DBNAME || "veterinaria";
 const uri = `mongodb+srv://${user}:${password}@cluster0.1b5k5.mongodb.net/${dbname}?retryWrites=true&w=majority&appName=Cluster0`;
 
