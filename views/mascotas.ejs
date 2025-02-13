@@ -1,30 +1,40 @@
-<%- include("template/cabecera", {tituloWeb : "Pagina de inicio"}) %>
+<%- include("template/cabecera", {tituloWeb: 'Página de inicio'}) %>
 
 <div class="container">
+    <h1>CRUD Mongo</h1>
+
+    <a class="btn btn-success btn-block my-4" href="/mascotas/crear">
+        Crear nueva Mascota
+    </a>
+
     <table class="table">
         <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">Acción</th>
-          </tr>
+            <tr class="text-center">
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col" class="text-center">Acción</th>
+            </tr>
         </thead>
         <tbody>
-            <% if (arrayMascotasDB.length > 0 ) { %>
-                <% arrayMascotasDB.forEach(mascota => { %>
-                    <tr>
-                        <th scope="row"><%= mascota.id%></th>  
-                        <td><%= mascota.nombre %></td>
-                        <td><%= mascota.descripcion %></td>
-                        <td> E </td>
-                      </tr>
-                <% }) %>
-            <% } %>
-         
+            <% if (arrayMascotasDB.length > 0) { %> <%
+            arrayMascotasDB.forEach(mascota => { %>
+
+            <tr class="text-center">
+                <th scope="row"><%= mascota.id %></th>
+                <td><%= mascota.nombre %></td>
+                <td><%= mascota.descripcion %></td>
+                <td>
+                    
+                
+                    <a href="mascotas/<%= mascota.id %>" class="btn btn-warning btn-sm text-white">Editar</a>
+                </td>
+            </tr>
+
+            <% }) %> <% } %>
         </tbody>
-      </table>
-    
+    </table>
 </div>
 
 <%- include("template/footer") %>
+

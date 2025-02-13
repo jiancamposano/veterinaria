@@ -1,11 +1,11 @@
 const express = require("express");
-const rutas = require("./router/rutasWeb.routes.js");
-const mascotas = require("./router/macostas.routes.js");
 require("dotenv").config();
 const app = express();
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 //conexxion a BD
 const mongoose = require("mongoose");
-
 
 const port = process.env.PORT || 8000;
 const password = process.env.PASSWORD || "lPQkKAARDxZzO7Vl";
@@ -22,10 +22,12 @@ mongoose
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 
+
 app.use(express.static(__dirname + "/public"));
 
-app.use("/", rutas);
-app.use("/mascotas", mascotas);
+app.use("/", require("./router/rutasWeb.routes.js"));
+app.use("/mascotas", require("./router/mascotas.routes"));
+
 
 app.use((req, res, next) => {
     res.status(404).render("404", {
