@@ -7,20 +7,23 @@ router.get("/", async (req, res) => {
     try {
         const arrayMascotasDB = await Mascota.find();
 
-        // Renderizamos la plantilla, pasando el mensaje
+        // Obtenemos el mensaje desde la query
         const mensaje = req.query.message;
+
+        // Verificamos si el arreglo está vacío y renderizamos con el mensaje adecuado
         if (!arrayMascotasDB || arrayMascotasDB.length === 0) {
             return res.render("mascotas", {
                 error: true,
                 mensaje: "No se encontraron mascotas.",
             });
         }
-        //console.log(arrayMascotasDB);
 
+        // Si hay mascotas, las pasamos a la plantilla
         return res.render("mascotas", {
             arrayMascotasDB,
             mensaje,
         });
+
     } catch (error) {
         console.error("Error al obtener las mascotas:", error);
 
@@ -30,6 +33,7 @@ router.get("/", async (req, res) => {
         });
     }
 });
+
 
 router.get("/crear", (req, res) => {
     res.render("crear", {

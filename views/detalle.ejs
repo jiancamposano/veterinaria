@@ -49,42 +49,41 @@
 
 <%- include("template/footer") %>
 <script>
-    const btnEliminar = document.querySelector("#btnEliminar");
-    const mensajeDiv = document.querySelector("#mensaje");
-    btnEliminar.addEventListener("click", async () => {
-        const id = btnEliminar.dataset.id;
-        const confirmacion = confirm(
-            "¿Estás seguro de que deseas eliminar esta mascota?"
-        );
-        if (!confirmacion) return;
-        try {
-            const data = await fetch(`/mascotas/${id}`, {
-                method: "DELETE",
-            });
-            const res = await data.json();
+   const btnEliminar = document.querySelector("#btnEliminar");
+const mensajeDiv = document.querySelector("#mensaje");
 
+btnEliminar.addEventListener("click", async () => {
+    const id = btnEliminar.dataset.id;  // Asegúrate de que el id esté en el atributo data-id del botón
+    const confirmacion = confirm(
+        "¿Estás seguro de que deseas eliminar esta mascota?"
+    );
+    
+    if (!confirmacion) return;
 
-            console.log(res);
+    try {
+        const data = await fetch(`/mascotas/${id}`, {
+            method: "DELETE",
+        });
 
-            if(estado){
-                mensajeDiv.classList.remove("alert-success", "d-none");
+        const res = await data.json();
+        console.log(res);  // Verifica la estructura de la respuesta
+
+        if (res.estado) {  // Asegúrate de que 'estado' sea el campo correcto
+            mensajeDiv.classList.remove("alert-succes", "d-none");
             mensajeDiv.classList.add("alert-danger", "d-block");
             mensajeDiv.textContent = res.mensaje;
 
             setTimeout(() => {
-                window.location.href = "/mascotas"; // Redirigir después de 3 segundos
+                window.location.href = "/mascotas"; // Redirigir después de 2 segundos
             }, 2000);
-            }else{
-                alert("Error al editar la mascota. Intenta de nuevo.");
-            }
-            
-        } catch (error) {
-            console.log(error);
-            alert(
-                "Ocurrió un error inesperado. Por favor, inténtalo de nuevo."
-            );
+        } else {
+            alert("Error al eliminar la mascota. Intenta de nuevo.");
         }
-    });
+    } catch (error) {
+        console.log(error);
+        alert("Ocurrió un error inesperado. Por favor, inténtalo de nuevo.");
+    }
+});
 
     const formularioEditar = document.querySelector("#formularioEditar");
     formularioEditar.addEventListener("submit", async (e) => {
@@ -109,7 +108,7 @@
             const res = await data.json();
             console.log(res);
 
-            if (res.estado) {
+           
                 // Limpiar clases anteriores y agregar mensaje de éxito
                 mensajeDiv.classList.remove("alert-danger", "d-none");
                 mensajeDiv.classList.add("alert-primary", "d-block");
@@ -118,9 +117,7 @@
                 setTimeout(() => {
                     window.location.href = "/mascotas"; // Redirigir después de 3 segundos
                 }, 2000);  
-            } else {
-                alert("Error al editar la mascota. Intenta de nuevo.");
-            }
+            
         } catch (error) {
             console.log(error);
             alert("Hubo un error inesperado");
