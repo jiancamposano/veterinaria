@@ -3,14 +3,17 @@
 <div class="container">
     <h1 class="text-center">CRUD Mongo</h1>
 
-    <a class="btn btn-success btn-block my-4" href="/mascotas/crear">
-        Crear nueva Mascota
-    </a>
+    <div class="d-grid gap-2">
+        <a class="btn btn-success btn-block my-4" href="/mascotas/crear">
+            Crear nueva Mascota
+        </a>
+    </div>
 
     <table class="table">
         <thead>
             <tr class="text-center">
-                <th scope="col">ID</th>
+               <!-- <th scope="col">ID</th>  -->
+
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
                 <th scope="col" class="text-center">Acción</th>
@@ -21,11 +24,16 @@
             arrayMascotasDB.forEach(mascota => { %>
 
             <tr class="text-center">
-                <th scope="row"><%= mascota.id %></th>
+                <!-- <th scope="row"><%= mascota.id %></th>  -->
+               
                 <td><%= mascota.nombre %></td>
                 <td><%= mascota.descripcion %></td>
                 <td>
-                    <a href="mascotas/<%= mascota.id %>" class="btn btn-warning btn-sm text-white">Editar</a>
+                    <a
+                        href="mascotas/<%= mascota.id %>"
+                        class="btn btn-warning btn-sm text-white"
+                        >Editar</a
+                    >
                 </td>
             </tr>
 
@@ -35,4 +43,3 @@
 </div>
 
 <%- include("template/footer") %>
-

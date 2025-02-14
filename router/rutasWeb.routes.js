@@ -1,13 +1,19 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    // console.log(__dirname)
-    res.render("index", {titulo : "mi titulo dinámico"})
-})
+router.get("/", (req, res) => {
+    
 
-router.get('/servicios', (req, res) => {
-    res.render("servicios", {tituloServicios: "Este es un mensaje dinámico de servicios"})
-})
+    res.render("index", {
+        titulo: "JC Pet Care",
+        subTituloWeb: " Tu mejor Veterinaria ",
+    });
+});
+
+router.get("/servicios", (req, res) => {
+    res.render("servicios", {
+        tituloServicios: "Este es un mensaje dinámico de servicios",
+    });
+});
 
 module.exports = router;

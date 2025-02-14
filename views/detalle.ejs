@@ -42,20 +42,25 @@
     const btnEliminar = document.querySelector("#btnEliminar");
     btnEliminar.addEventListener("click", async () => {
         const id = btnEliminar.dataset.id;
+        const confirmacion = confirm(
+            "¿Estás seguro de que deseas eliminar esta mascota?"
+        );
+        if (!confirmacion) return;
         try {
             const data = await fetch(`/mascotas/${id}`, {
-                method: "delete",
+                method: "DELETE",
             });
             const res = await data.json();
 
             if (res.estado) {
                 window.location.href = "/mascotas";
             } else {
-                console.log(res);
+                alert("Error al eliminar la mascota. Por favor, inténtalo de nuevo.");
             }
             console.log(res);
         } catch (error) {
             console.log(error);
+        alert("Ocurrió un error inesperado. Por favor, inténtalo de nuevo.");
         }
     });
 
@@ -67,11 +72,15 @@
         const id = formularioEditar.dataset.id;
         //console.log(nombre,descripcion,id)
 
+        if (!nombre || !descripcion) {
+        alert("Por favor, llena todos los campos.");
+        return;
+    }
         try {
             const data = await fetch(`/mascotas/${id}`, {
-                method: "put",
+                method: "PUT",
                 headers: {
-                     'Content-Type': 'application/json'
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({ nombre, descripcion }),
             });
@@ -79,12 +88,13 @@
             console.log(res);
 
             if (res.estado) {
-                window.location.href = '/mascotas'
-            }else{
-                console.log(res)
-            }
+                window.location.href = "/mascotas";
+            } else {
+            alert("Error al editar la mascota. Intenta de nuevo.");
+        }
         } catch (error) {
             console.log(error);
+            alert("Hubo un error inesperado. Por favor, intenta nuevamente.");
         }
     });
 </script>
