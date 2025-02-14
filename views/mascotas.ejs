@@ -9,7 +9,7 @@
     </div>
 
     <% } %>
-
+  
     <div class="d-grid gap-2">
         <a class="btn btn-success btn-block my-4" href="/mascotas/crear">
             Crear nueva Mascota
@@ -55,9 +55,11 @@
         if (alerta) {
             alerta.style.transition = "opacity 0.5s";
             alerta.style.opacity = "0";
+            window.location.href = "/mascotas";
             setTimeout(() => alerta.remove(), 500);
         }
 
-        window.location.href = "/mascotas";
+        
     }, 3000);
+    
 </script>

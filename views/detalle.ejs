@@ -6,7 +6,11 @@
     <p><%= mensaje %></p>
     <a href="/mascotas" class="btn btn-dark btn-block"> Volver a Mascotas </a>
     <% } %> <% if (!error) { %>
-      
+    <div
+        id="mensaje"
+        class="alert alert-danger text-center"
+        style="display: none"
+    ></div>
     <form id="formularioEditar" data-id="<%= mascota.id %>">
         <input
             type="text"
@@ -22,27 +26,31 @@
             id="descripcionInput"
             value="<%= mascota.descripcion %>"
         />
-        <button class="btn btn-warning btn-block mt-1 text-center" type="submit">
+        <button
+            class="btn btn-warning btn-block mt-1 text-center"
+            type="submit"
+        >
             Editar
         </button>
     </form>
     <hr />
-    <div class="text-center ">
+    <div class="text-center">
         <button
-        class="btn btn-danger btn-sm p-2"
-        id="btnEliminar"
-        data-id="<%= mascota.id %>"
-    >
-        Eliminar
-    </button>
+            class="btn btn-danger btn-sm p-2"
+            id="btnEliminar"
+            data-id="<%= mascota.id %>"
+        >
+            Eliminar
+        </button>
     </div>
- 
+
     <% } %>
 </div>
 
 <%- include("template/footer") %>
 <script>
     const btnEliminar = document.querySelector("#btnEliminar");
+    const mensajeDiv = document.querySelector("#mensaje");
     btnEliminar.addEventListener("click", async () => {
         const id = btnEliminar.dataset.id;
         const confirmacion = confirm(
@@ -55,15 +63,26 @@
             });
             const res = await data.json();
 
-            if (res.estado) {
-                window.location.href = "/mascotas";
-            } else {
-                alert("Error al eliminar la mascota. Por favor, inténtalo de nuevo.");
-            }
+
             console.log(res);
+
+            if(estado){
+                mensajeDiv.classList.remove("alert-success", "d-none");
+            mensajeDiv.classList.add("alert-danger", "d-block");
+            mensajeDiv.textContent = res.mensaje;
+
+            setTimeout(() => {
+                window.location.href = "/mascotas"; // Redirigir después de 3 segundos
+            }, 2000);
+            }else{
+                alert("Error al editar la mascota. Intenta de nuevo.");
+            }
+            
         } catch (error) {
             console.log(error);
-        alert("Ocurrió un error inesperado. Por favor, inténtalo de nuevo.");
+            alert(
+                "Ocurrió un error inesperado. Por favor, inténtalo de nuevo."
+            );
         }
     });
 
@@ -76,9 +95,9 @@
         //console.log(nombre,descripcion,id)
 
         if (!nombre || !descripcion) {
-        alert("Por favor, llena todos los campos.");
-        return;
-    }
+            alert("Por favor, llena todos los campos.");
+            return;
+        }
         try {
             const data = await fetch(`/mascotas/${id}`, {
                 method: "PUT",
@@ -91,13 +110,20 @@
             console.log(res);
 
             if (res.estado) {
-                window.location.href = "/mascotas";
+                // Limpiar clases anteriores y agregar mensaje de éxito
+                mensajeDiv.classList.remove("alert-danger", "d-none");
+                mensajeDiv.classList.add("alert-primary", "d-block");
+                mensajeDiv.textContent = res.mensaje;
+
+                setTimeout(() => {
+                    window.location.href = "/mascotas"; // Redirigir después de 3 segundos
+                }, 2000);  
             } else {
-            alert("Error al editar la mascota. Intenta de nuevo.");
-        }
+                alert("Error al editar la mascota. Intenta de nuevo.");
+            }
         } catch (error) {
             console.log(error);
-            alert("Hubo un error inesperado. Por favor, intenta nuevamente.");
+            alert("Hubo un error inesperado");
         }
     });
 </script>

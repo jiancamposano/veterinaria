@@ -62,7 +62,7 @@ router.get("/:id", async (req, res) => {
         // const mascostaDB = await Mascota.findOne({_id : id})
         const mascotaDB = await Mascota.findById(id);
 
-        console.log(mascotaDB);
+        //console.log(mascotaDB);
         if (!mascotaDB) {
             return res.render("detalle", {
                 error: true,
@@ -97,6 +97,7 @@ router.delete("/:id", async (req, res) => {
             estado: true,
             mensaje: "Mascota eliminada correctamente",
         });
+        
     } catch (error) {
         console.error("Error al eliminar mascota:", error);
 
