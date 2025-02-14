@@ -6,6 +6,7 @@
     <p><%= mensaje %></p>
     <a href="/mascotas" class="btn btn-dark btn-block"> Volver a Mascotas </a>
     <% } %> <% if (!error) { %>
+      
     <form id="formularioEditar" data-id="<%= mascota.id %>">
         <input
             type="text"
@@ -21,19 +22,21 @@
             id="descripcionInput"
             value="<%= mascota.descripcion %>"
         />
-        <button class="btn btn-warning btn-block mt-1" type="submit">
+        <button class="btn btn-warning btn-block mt-1 text-center" type="submit">
             Editar
         </button>
     </form>
     <hr />
-    <button
-        class="btn btn-danger btn-sm"
+    <div class="text-center ">
+        <button
+        class="btn btn-danger btn-sm p-2"
         id="btnEliminar"
         data-id="<%= mascota.id %>"
     >
         Eliminar
     </button>
-
+    </div>
+ 
     <% } %>
 </div>
 

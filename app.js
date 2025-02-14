@@ -1,9 +1,10 @@
 const express = require("express");
+
 require("dotenv").config();
 const app = express();
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
 //conexxion a BD
 const mongoose = require("mongoose");
 

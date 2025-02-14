@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
+
 const Mascota = require("../models/mascota");
 
 router.get("/", async (req, res) => {
     try {
         const arrayMascotasDB = await Mascota.find();
+
+        // Renderizamos la plantilla, pasando el mensaje
+        const mensaje = req.query.message;
         if (!arrayMascotasDB || arrayMascotasDB.length === 0) {
             return res.render("mascotas", {
                 error: true,
@@ -12,8 +16,10 @@ router.get("/", async (req, res) => {
             });
         }
         //console.log(arrayMascotasDB);
+
         return res.render("mascotas", {
             arrayMascotasDB,
+            mensaje,
         });
     } catch (error) {
         console.error("Error al obtener las mascotas:", error);
@@ -34,16 +40,11 @@ router.get("/crear", (req, res) => {
 router.post("/", async (req, res) => {
     try {
         const body = req.body;
-        // if (!body || Object.keys(body).length === 0) {
-        //     return res.status(400).json({
-        //         estado: false,
-        //         mensaje: "Los datos enviados son inválidos",
-        //     });
-        // }
-        //const mascotaDB = new Mascota(body);
+
         //await mascotaDB.save();
         await Mascota.create(body);
-        res.redirect("/mascotas?message=UsuarioCreado");
+
+        res.redirect("/mascotas?message=Usuario Creado exitosamente");
     } catch (error) {
         console.error("Error al crear la mascota:", error);
 

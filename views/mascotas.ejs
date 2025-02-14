@@ -3,6 +3,13 @@
 <div class="container">
     <h1 class="text-center">CRUD Mongo</h1>
 
+    <% if (mensaje) { %>
+    <div id="mensajeAlerta" class="alert alert-success text-center">
+        <%= mensaje %>
+    </div>
+
+    <% } %>
+
     <div class="d-grid gap-2">
         <a class="btn btn-success btn-block my-4" href="/mascotas/crear">
             Crear nueva Mascota
@@ -12,8 +19,7 @@
     <table class="table">
         <thead>
             <tr class="text-center">
-               <!-- <th scope="col">ID</th>  -->
-
+                <!-- <th scope="col">ID</th>  -->
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
                 <th scope="col" class="text-center">Acción</th>
@@ -25,7 +31,7 @@
 
             <tr class="text-center">
                 <!-- <th scope="row"><%= mascota.id %></th>  -->
-               
+
                 <td><%= mascota.nombre %></td>
                 <td><%= mascota.descripcion %></td>
                 <td>
@@ -43,3 +49,15 @@
 </div>
 
 <%- include("template/footer") %>
+<script>
+    setTimeout(() => {
+        const alerta = document.getElementById("mensajeAlerta");
+        if (alerta) {
+            alerta.style.transition = "opacity 0.5s";
+            alerta.style.opacity = "0";
+            setTimeout(() => alerta.remove(), 500);
+        }
+
+        window.location.href = "/mascotas";
+    }, 3000);
+</script>
