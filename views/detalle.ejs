@@ -62,18 +62,16 @@
                 method: "DELETE",
             });
             const res = await data.json();
-
-
-            console.log(res);
+            //console.log(res);
 
             if(res.estado){
                 mensajeDiv.classList.remove("alert-success", "d-none");
-            mensajeDiv.classList.add("alert-danger", "d-block");
-            mensajeDiv.textContent = res.mensaje;
+                mensajeDiv.classList.add("alert-danger", "d-block");
+                mensajeDiv.textContent = res.mensaje;
 
             setTimeout(() => {
                 window.location.href = "/mascotas"; // Redirigir después de 3 segundos
-            }, 2000);
+            }, 1500);
             }else{
                 alert("Error al editar la mascota. Intenta de nuevo.");
             }

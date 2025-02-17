@@ -30,11 +30,11 @@ app.use("/", require("./router/rutasWeb.routes.js"));
 app.use("/mascotas", require("./router/mascotas.routes"));
 
 
-app.use((req, res, next) => {
-    res.status(404).render("404", {
-        titulo404: " Pagina No encontrada 404",
-    });
-});
+// app.use((req, res, next) => {
+//     res.status(404).render("404", {
+//         titulo404: " Pagina No encontrada 404",
+//     });
+// });
 
 app.listen(port, () => {
     console.log(`Escuchando puerto ${port} `);

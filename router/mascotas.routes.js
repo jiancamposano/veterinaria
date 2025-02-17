@@ -6,28 +6,17 @@ const Mascota = require("../models/mascota");
 router.get("/", async (req, res) => {
     try {
         const arrayMascotasDB = await Mascota.find();
-
-        // Renderizamos la plantilla, pasando el mensaje
         const mensaje = req.query.message;
-        if (!arrayMascotasDB || arrayMascotasDB.length === 0) {
-            return res.render("mascotas", {
-                error: true,
-                mensaje: "No se encontraron mascotas.",
-            });
-        }
-        //console.log(arrayMascotasDB);
-
-        return res.render("mascotas", {
+        
+        res.render("mascotas", {
             arrayMascotasDB,
             mensaje,
+            mensajeVacio : 'NO SE ENCONTRARON MASCOTAS DISPONIBLES'
         });
     } catch (error) {
         console.error("Error al obtener las mascotas:", error);
 
-        return res.status(500).render("mascotas", {
-            error: true,
-            mensaje: "Error al cargar las mascotas.",
-        });
+       
     }
 });
 
@@ -48,10 +37,7 @@ router.post("/", async (req, res) => {
     } catch (error) {
         console.error("Error al crear la mascota:", error);
 
-        return res.status(500).json({
-            estado: false,
-            mensaje: "Error interno del servidor",
-        });
+
     }
 });
 
@@ -64,22 +50,19 @@ router.get("/:id", async (req, res) => {
 
         //console.log(mascotaDB);
         if (!mascotaDB) {
-            return res.render("detalle", {
+            res.render("detalle", {
                 error: true,
                 mensaje: "No se encontró la mascota",
             });
         }
-
-        return res.render("detalle", {
+        //res.redirect("/mascotas?message=Usuario ELIMINADO exitosamente");
+        res.render("detalle", {
             mascota: mascotaDB,
             error: false,
         });
     } catch (error) {
         console.error("Error al obtener la mascota:", error);
-        return res.render("detalle", {
-            error: true,
-            mensaje: "Error interno del servidor",
-        });
+       
     }
 });
 
@@ -88,23 +71,19 @@ router.delete("/:id", async (req, res) => {
     try {
         mascotaDB = await Mascota.findByIdAndDelete(id);
         if (!mascotaDB) {
-            return res.status(404).json({
+            res.status(404).json({
                 estado: false,
                 mensaje: "Mascota no encontrada",
             });
         }
-        return res.json({
+        res.json({
             estado: true,
             mensaje: "Mascota eliminada correctamente",
         });
-        
     } catch (error) {
         console.error("Error al eliminar mascota:", error);
 
-        return res.status(500).json({
-            estado: false,
-            mensaje: "Error interno del servidor",
-        });
+       
     }
 });
 
@@ -116,21 +95,18 @@ router.put("/:id", async (req, res) => {
             new: true,
         });
         if (!mascota) {
-            return res.status(404).json({
+            res.status(404).json({
                 estado: false,
                 mensaje: "Mascota no encontrada",
             });
         }
-        return res.json({
+        res.json({
             estado: true,
             mensaje: "Mascota editada correctamente",
         });
     } catch (error) {
         console.error("Error al editar mascota:", error);
-        return res.status(500).json({
-            estado: false,
-            mensaje: "Error interno del servidor",
-        });
+       
     }
 });
 

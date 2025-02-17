@@ -16,6 +16,7 @@
         </a>
     </div>
 
+
     <table class="table">
         <thead>
             <tr class="text-center">
@@ -26,24 +27,22 @@
             </tr>
         </thead>
         <tbody>
-            <% if (arrayMascotasDB.length > 0) { %> <%
-            arrayMascotasDB.forEach(mascota => { %>
-
-            <tr class="text-center">
-                <!-- <th scope="row"><%= mascota.id %></th>  -->
-
-                <td><%= mascota.nombre %></td>
-                <td><%= mascota.descripcion %></td>
-                <td>
-                    <a
-                        href="mascotas/<%= mascota.id %>"
-                        class="btn btn-warning btn-sm text-white"
-                        >Editar</a
-                    >
-                </td>
-            </tr>
-
-            <% }) %> <% } %>
+            <% if (arrayMascotasDB.length > 0) { %>
+                <% arrayMascotasDB.forEach(mascota => { %>
+                    <tr class="text-center">
+                        <!-- <th scope="row"><%= mascota.id %></th>  -->
+                        <td><%= mascota.nombre %></td>
+                        <td><%= mascota.descripcion %></td>
+                        <td>
+                            <a href="mascotas/<%= mascota.id %>" class="btn btn-warning btn-sm text-white">Editar</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="3" class="text-center text-muted"><%= mensajeVacio %></td>
+                </tr>
+            <% } %>
         </tbody>
     </table>
 </div>
@@ -57,9 +56,7 @@
             alerta.style.opacity = "0";
             window.location.href = "/mascotas";
             setTimeout(() => alerta.remove(), 500);
-        }
-
-        
+        }   
     }, 3000);
     
 </script>
