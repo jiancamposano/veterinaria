@@ -28,6 +28,11 @@ app.use(express.static(__dirname + "/public"));
 
 app.use("/", require("./router/rutasWeb.routes.js"));
 app.use("/mascotas", require("./router/mascotas.routes"));
+app.use((req, res) => {
+    res.render("404", {
+        titulo: "RUTA NO ENCONTRADA",
+    });
+});
 
 
 // app.use((req, res, next) => {
